@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Coding Events Example</title>
+
+<!--    <script th:src="@{/script.js}"></script>-->
+<!--    <link th:href="@{/styles.css}" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div th:fragment="pics">
+    <img th:src="@{/images/tiger.jpg}" />
+    <img th:src="@{/images/tigerW.jpg}" />
+<!--    <img th:src="@{/images/lion.jpg}" />-->
+<!--    <img th:src="@{/images/lioness.jpg}" />-->
+    <img th:src="@{/images/cougar.jpg}" />
+<!--    <img th:src="@{/images/leopard.jpg}" />-->
+    <img th:src="@{/images/jaguar.jpg}" />
+<!--    <img th:src="@{/images/pantherB.jpg}" />-->
+</div>
+
+<nav th:fragment="header">
+<!--    <h1 th:text="${title}">Coding Events Example</h1>-->
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="/events">All Events</a></li>
+        <li class="nav-item"><a class="nav-link" href="/events/create">Create Event</a></li>
+        <li class="nav-item"><a class="nav-link" href="/events/delete">Delete Events</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>

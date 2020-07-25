@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+
+<!--<head>-->
+<!--    <meta charset="UTF-8"/>-->
+<!--    <title>Coding Events</title>-->
+<!--</head>-->
+<!--<body>-->
+<body class="container">
+
+<h1>All Events</h1>
+
+<nav th:replace="fragments :: header"></nav>
+
+<p th:if="!${events} or !${events.size() > 0}">No events!</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>ID</th>
+        </tr>
+    </thead>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.description}"></td>
+        <td th:text="${event.id}"></td>
+    </tr>
+</table>
+
+<!--<nav>-->
+<!--    <ul>-->
+<!--        <li><a href="/events/create">Create Event</a></li>-->
+<!--    </ul>-->
+<!--</nav>-->
+
+<div th:replace="fragments :: pics"></div>
+
+</body>
+</html>
