@@ -38,6 +38,18 @@
         <p class="error" th:errors="${event.contactEmail}"></p>
     </div>
     <div class="form-group">
+        <label>Event type
+            <!--            <input type="text" name="contactEmail" class="form-control">-->
+            <select th:field="${event.type}">
+                <option th:each="type : ${types}"
+                    th:value="${type}"
+                    th:text="${type.displayName}"
+                ></option>
+            </select>
+        </label>
+        <p class="error" th:errors="${event.type}"></p>
+    </div>
+    <div class="form-group">
         <input type="submit" value="Create Event" class="btn btn-success">
     </div>
 </form>

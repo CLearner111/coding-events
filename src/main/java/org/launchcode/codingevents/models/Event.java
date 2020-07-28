@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+
 public class Event {
 
     private int id;
@@ -21,11 +22,14 @@ public class Event {
 //    @Email(message = "Invalid email")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    private EventType type;
+
+    public Event(String name, String description, String contactEmail, EventType type) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.type = type;
     }
 
     //No argument constructor
@@ -34,8 +38,12 @@ public class Event {
         nextId++;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -54,12 +62,16 @@ public class Event {
         this.contactEmail = contactEmail;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     @Override
