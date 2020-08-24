@@ -44,6 +44,9 @@ public class EventController {
         }
 
 //        newEvent.setEventCategory();
+//        eventCategoryRepository.save();
+        eventCategoryRepository.save(newEvent.getEventCategory());
+
         eventRepository.save(newEvent);
         return "redirect:";
     }

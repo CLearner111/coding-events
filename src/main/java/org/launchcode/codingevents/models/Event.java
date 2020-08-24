@@ -1,9 +1,8 @@
 package org.launchcode.codingevents.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,6 +23,7 @@ public class Event extends AbstractEntity {
     private String contactEmail;
 
     @ManyToOne
+//    @ManyToOne(cascade= CascadeType.ALL)
 //    @Transient
 //    @JoinColumn(name="typeId", insertable=false, updatable=false, nullable=false)
     @NotNull(message = "Category is required")
