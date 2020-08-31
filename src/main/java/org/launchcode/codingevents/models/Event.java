@@ -26,7 +26,7 @@ public class Event extends AbstractEntity {
 //    @ManyToOne(cascade= CascadeType.ALL)
 //    @Transient
 //    @JoinColumn(name="typeId", insertable=false, updatable=false, nullable=false)
-    @NotNull(message = "Category is required")
+//    @NotNull(message = "Category is required")
     private EventCategory eventCategory;
 
     public Event(String name, String description, String contactEmail, EventCategory eventCategory) {
