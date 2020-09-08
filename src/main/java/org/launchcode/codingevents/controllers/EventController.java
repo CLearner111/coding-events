@@ -1,6 +1,5 @@
 package org.launchcode.codingevents.controllers;
 
-import org.hibernate.event.spi.EventType;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
@@ -38,21 +37,13 @@ public class EventController {
     }
 
     @PostMapping("create")
-//    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
-    public String processCreateEventForm(@ModelAttribute Event newEvent, Errors errors, Model model) {
+    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
         if(errors.hasErrors()) {
             model.addAttribute("title", "Create Event");
             return "events/create";
         }
 
-
-//        newEvent.setEventCategory();
-//        eventCategoryRepository.save();
-//        eventCategoryRepository.save(newEvent.getEventCategory());
-
         eventRepository.save(newEvent);
-
-//        System.out.println(newEvent.getEventCategory());
 
         return "redirect:";
     }
