@@ -26,7 +26,11 @@
     </div>
     <div class="form-group">
         <label>Category
-            <select th:field="${event.eventCategory}">
+<!--            <select th:field="${event.eventCategory}">-->
+            <select name="EventCategoryId" id="EventCategoryId">
+<!--            <select th:field="${event.EventCategoryId}">-->
+
+
                 <option th:each="eventCategory : ${categories}"
                         th:value="${eventCategory.id}"
                         th:text="${eventCategory.name}"

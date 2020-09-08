@@ -3,6 +3,7 @@ package org.launchcode.codingevents.controllers;
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
+import org.launchcode.codingevents.models.EventCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,11 +38,17 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
+//    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
+    public String processCreateEventForm(@ModelAttribute Event newEvent, @RequestParam int EventCategoryId, Errors errors, Model model) {
         if(errors.hasErrors()) {
             model.addAttribute("title", "Create Event");
             return "events/create";
         }
+
+        System.out.println("EventCategoryId: " + EventCategoryId);
+
+        EventCategory eventCategory = eventCategoryRepository.findById(EventCategoryId).get();
+        newEvent.setEventCategory(eventCategory);
 
         eventRepository.save(newEvent);
 
