@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @Controller
 @RequestMapping("events")
 public class EventController {
@@ -46,6 +44,10 @@ public class EventController {
         }
 
         System.out.println("EventCategoryId: " + EventCategoryId);
+
+        if(eventCategoryRepository.findById(EventCategoryId).isEmpty()) {
+            return "events/create";
+        }
 
         EventCategory eventCategory = eventCategoryRepository.findById(EventCategoryId).get();
         newEvent.setEventCategory(eventCategory);

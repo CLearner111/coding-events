@@ -30,7 +30,6 @@
             <select name="EventCategoryId" id="EventCategoryId">
 <!--            <select th:field="${event.EventCategoryId}">-->
 
-
                 <option th:each="eventCategory : ${categories}"
                         th:value="${eventCategory.id}"
                         th:text="${eventCategory.name}"

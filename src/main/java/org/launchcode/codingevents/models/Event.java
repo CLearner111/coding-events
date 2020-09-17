@@ -70,5 +70,4 @@ public class Event extends AbstractEntity {
     public String toString() {
         return name;
     }
-
 }
