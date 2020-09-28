@@ -2,14 +2,18 @@ package org.launchcode.codingevents.controllers;
 
 import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
+import org.launchcode.codingevents.data.TagRepository;
 import org.launchcode.codingevents.models.Event;
 import org.launchcode.codingevents.models.EventCategory;
+import org.launchcode.codingevents.models.Tag;
+import org.launchcode.codingevents.models.dto.EventTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -21,6 +25,9 @@ public class EventController {
 
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @GetMapping
     public String displayAllEvents(@RequestParam(required = false) Integer categoryId, Model model) {
@@ -57,7 +64,7 @@ public class EventController {
             return "events/create";
         }
 
-        System.out.println("EventCategoryId: " + EventCategoryId);
+//        System.out.println("EventCategoryId: " + EventCategoryId);
 
         if(eventCategoryRepository.findById(EventCategoryId).isEmpty()) {
             return "events/create";
@@ -101,9 +108,85 @@ public class EventController {
             Event event = result.get();
             model.addAttribute("title", event.getName() + " Details");
             model.addAttribute("event", event);
+            model.addAttribute("tags", event.getTags());
         }
 
         return "events/detail";
     }
 
+//    @GetMapping("add-tag")
+//    public String displayAddTagForm(@RequestParam(required = false) Integer eventId, Model model) {
+//
+//        Optional<Event> result;
+//        EventTagDTO eventTag = new EventTagDTO();
+//
+//        System.out.println("Integer Object:" + eventId);
+//        if(eventId != null) {
+//            result = eventRepository.findById(eventId);
+//
+//            Event event;
+//            if(result.isPresent()) {
+//                event = result.get();
+//
+//                System.out.println("event obj:" + event);
+//                System.out.println("event id:" + event.getId());
+//                System.out.println("event name:" + event.getName());
+//
+//                model.addAttribute("title", "Add Tag to: " + event.getName());
+//                model.addAttribute("tags", tagRepository.findAll());
+//                eventTag.setEvent(event);
+//                model.addAttribute("eventTag", eventTag);
+//            }
+//        }
+//
+//        model.addAttribute("eventTag", eventTag);
+//        return "events/add-tag.html";
+//    }
+
+    @GetMapping("add-tag")
+    public String displayAddTagForm(@RequestParam Integer eventId, Model model){
+        Optional<Event> result = eventRepository.findById(eventId);
+        Event event = result.get();
+        model.addAttribute("title", "Add Tag to: " + event.getName());
+        model.addAttribute("tags", tagRepository.findAll());
+        EventTagDTO eventTag = new EventTagDTO();
+        eventTag.setEvent(event);
+
+//        System.out.println("event obj:" + event);
+//        System.out.println("event id:" + event.getId());
+//        System.out.println("event name:" + event.getName());
+//
+//        System.out.println("eventTag obj:" + eventTag);
+//        System.out.println("eventTag getEvent:" + eventTag.getEvent());
+//        System.out.println("eventTag getTag:" + eventTag.getTag());
+
+
+        model.addAttribute("eventTag", eventTag);
+        return "events/add-tag.html";
+    }
+
+    @PostMapping("add-tag")
+    public String processAddTagForm(@ModelAttribute @Valid EventTagDTO eventTag, Errors errors, Model model) {
+//    public String processAddTagForm(@ModelAttribute @Valid @RequestBody EventTagDTO eventTag, Errors errors, Model model) {
+
+//        System.out.println("Error:" + errors);
+//
+//        System.out.println("eventTag obj:" + eventTag);
+//        System.out.println("eventTag getEvent:" + eventTag.getEvent());
+//        System.out.println("eventTag getTag:" + eventTag.getTag());
+
+        if(!errors.hasErrors()) {
+            Event event = eventTag.getEvent();
+            Tag tag = eventTag.getTag();
+            if(!event.getTags().contains(tag)){
+                event.addTag(tag);
+                eventRepository.save(event);
+            }
+            return "redirect:detail?eventId=" + event.getId();
+        }
+        return "redirect:add-tag";
+
+//        System.out.println("Errored 5:");
+//        return "redirect:";
+    }
 }

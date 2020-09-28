@@ -2,7 +2,6 @@ package org.launchcode.codingevents.models;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -71,4 +70,9 @@ public class Event extends AbstractEntity {
     public String toString() {
         return name;
     }
+
+//    @Override
+//    public String toString() {
+//        return "" + getId();
+//    }
 }
